@@ -14,6 +14,7 @@ import org.ankanchanda.jobms.job.mapper.JobMapper;
 import org.springframework.stereotype.Service;
 
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 
 @Service
 public class JobServiceImpl implements JobService {
@@ -26,8 +27,9 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
-    @CircuitBreaker(name = "companyBreaker", fallbackMethod = "companyBreakerFallback") // should be same as mentioned in application.yml
-    // for resilience4j
+    // name should be same as mentioned in application.ymlfor resilience4j
+    // @CircuitBreaker(name = "companyBreaker", fallbackMethod = "companyBreakerFallback")
+    @Retry(name = "companyBreaker", fallbackMethod = "companyBreakerFallback")
     public List<JobWithCompanyDTO> findAll() {
         List<Job> jobs = jobRepository.findAll();
         List<JobWithCompanyDTO> jobWithCompanyDTOs = jobs.stream()
