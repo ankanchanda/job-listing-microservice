@@ -26,7 +26,7 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
-    @CircuitBreaker(name = "companyBreaker") // should be same as mentioned in application.yml
+    @CircuitBreaker(name = "companyBreaker", fallbackMethod = "companyBreakerFallback") // should be same as mentioned in application.yml
     // for resilience4j
     public List<JobWithCompanyDTO> findAll() {
         List<Job> jobs = jobRepository.findAll();
@@ -34,6 +34,10 @@ public class JobServiceImpl implements JobService {
                 .map(this::geJobWithCompanyDTO)
                 .collect(Collectors.toList());
         return jobWithCompanyDTOs;
+    }
+
+    public List<String> companyBreakerFallback(Exception e) {
+        return List.of("Company service is down, please try again later");
     }
 
     @Override

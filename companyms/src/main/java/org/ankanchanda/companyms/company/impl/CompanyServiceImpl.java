@@ -27,7 +27,7 @@ public class CompanyServiceImpl implements CompanyService{
     }
 
     @Override
-    @CircuitBreaker(name = "reviewBreaker") // should be same as mentioned in application.yml
+    @CircuitBreaker(name = "reviewBreaker", fallbackMethod = "reviewBreakerFallback") // should be same as mentioned in application.yml
     // for resilience4j
     public List<CompanyWithReviewsDTO> findAll() {
         List<Company> companies = companyRepository.findAll();
@@ -36,6 +36,10 @@ public class CompanyServiceImpl implements CompanyService{
                 .collect(Collectors.toList());
 
         return companyWithReviewsDTOs;
+    }
+
+    public List<String> reviewBreakerFallback(Exception e) {
+        return List.of("Review service is down, please try again later");
     }
 
     @Override
