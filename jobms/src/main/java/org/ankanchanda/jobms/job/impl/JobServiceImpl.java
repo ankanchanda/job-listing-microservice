@@ -13,6 +13,8 @@ import org.ankanchanda.jobms.job.JobService;
 import org.ankanchanda.jobms.job.mapper.JobMapper;
 import org.springframework.stereotype.Service;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+
 @Service
 public class JobServiceImpl implements JobService {
     private JobRepository jobRepository;
@@ -24,6 +26,8 @@ public class JobServiceImpl implements JobService {
     }
 
     @Override
+    @CircuitBreaker(name = "companyBreaker") // should be same as mentioned in application.yml
+    // for resilience4j
     public List<JobWithCompanyDTO> findAll() {
         List<Job> jobs = jobRepository.findAll();
         List<JobWithCompanyDTO> jobWithCompanyDTOs = jobs.stream()

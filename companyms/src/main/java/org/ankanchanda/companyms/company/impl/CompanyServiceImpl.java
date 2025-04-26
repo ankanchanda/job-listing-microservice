@@ -7,6 +7,8 @@ import org.ankanchanda.companyms.dto.CompanyWithReviewsDTO;
 import org.ankanchanda.companyms.external.Review;
 import org.springframework.stereotype.Service;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.Optional;
@@ -25,6 +27,8 @@ public class CompanyServiceImpl implements CompanyService{
     }
 
     @Override
+    @CircuitBreaker(name = "reviewBreaker") // should be same as mentioned in application.yml
+    // for resilience4j
     public List<CompanyWithReviewsDTO> findAll() {
         List<Company> companies = companyRepository.findAll();
         List<CompanyWithReviewsDTO> companyWithReviewsDTOs = companies.stream()
