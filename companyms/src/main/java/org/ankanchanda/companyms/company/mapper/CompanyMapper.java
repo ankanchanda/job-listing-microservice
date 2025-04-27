@@ -13,6 +13,7 @@ public class CompanyMapper {
         companyWithReviewDTO.setName(company.getName());
         companyWithReviewDTO.setDescription(company.getDescription());
         companyWithReviewDTO.setReviews(reviews);
+        companyWithReviewDTO.setRating(company.getRating());
 
         return companyWithReviewDTO;
     }

@@ -1,9 +1,11 @@
 package org.ankanchanda.companyms.company.impl;
 
+import jakarta.ws.rs.NotFoundException;
 import org.ankanchanda.companyms.company.CompanyRepository;
 import org.ankanchanda.companyms.company.CompanyService;
 import org.ankanchanda.companyms.company.mapper.CompanyMapper;
 import org.ankanchanda.companyms.dto.CompanyWithReviewsDTO;
+import org.ankanchanda.companyms.dto.ReviewMessage;
 import org.ankanchanda.companyms.external.Review;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +20,8 @@ import org.ankanchanda.companyms.company.Company;
 
 @Service
 public class CompanyServiceImpl implements CompanyService{
-    private CompanyRepository companyRepository;
-    private ReviewClient reviewClient;
+    private final CompanyRepository companyRepository;
+    private final ReviewClient reviewClient;
 
     public CompanyServiceImpl(CompanyRepository companyRepository, ReviewClient reviewClient) {
         this.companyRepository = companyRepository;
@@ -73,6 +75,17 @@ public class CompanyServiceImpl implements CompanyService{
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void updateCompanyRating(ReviewMessage reviewMessage) {
+        Company company = companyRepository.findById(
+                reviewMessage.getCompanyId())
+                .orElseThrow(() -> new NotFoundException("company not found")
+        );
+        double averageRating = reviewClient.getAverageRatingByCompanyId(company.getId());
+        company.setRating(averageRating);
+        companyRepository.save(company);
     }
 
     private  CompanyWithReviewsDTO getCompanyWithReviewsDTO(Company company) {

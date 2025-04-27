@@ -18,4 +18,13 @@ public interface ReviewClient {
      */
     @GetMapping("/reviews")
     List<Review> getReviewsByCompanyId(@RequestParam Long companyId);
+
+    /**
+     *  Fetches average rating for a given company ID.
+     *
+     * @param companyId the id of the company for which to fetch the reviews
+     * @return average rating for the company
+     */
+    @GetMapping("/reviews/averageRating")
+    Double getAverageRatingByCompanyId(@RequestParam Long companyId);
 }

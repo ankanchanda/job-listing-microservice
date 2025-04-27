@@ -9,6 +9,7 @@ public class CompanyWithReviewsDTO {
     private Long id;
     private String name;
     private String description;
+    private Double rating;
     List<Review> reviews;
 
     public CompanyWithReviewsDTO() {
@@ -31,6 +32,12 @@ public class CompanyWithReviewsDTO {
     }
     public void setDescription(String description) {
         this.description = description;
+    }
+    public Double getRating() {
+        return rating;
+    }
+    public void setRating(Double rating) {
+        this.rating = rating;
     }
     public List<Review> getReviews() {
         return reviews;

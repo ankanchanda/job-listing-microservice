@@ -1,7 +1,9 @@
 package org.ankanchanda.reviewms.review;
 
 import java.util.List;
+import java.util.OptionalDouble;
 
+import org.ankanchanda.reviewms.messaging.ReviewMessageProducer;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,10 +20,12 @@ import org.springframework.web.bind.annotation.PutMapping;
 @RequestMapping("/reviews")
 public class ReviewController {
 
-    private ReviewService reviewService;
+    private final ReviewService reviewService;
+    private final ReviewMessageProducer reviewMessageProducer;
 
-    public ReviewController(ReviewService reviewService) {
+    public ReviewController(ReviewService reviewService, ReviewMessageProducer reviewMessageProducer) {
         this.reviewService = reviewService;
+        this.reviewMessageProducer = reviewMessageProducer;
     }
     
     @GetMapping
@@ -37,11 +41,24 @@ public class ReviewController {
         }
         return ResponseEntity.ok(review);
     }
+
+    @GetMapping("/averageRating")
+    public ResponseEntity<Double> findAverageRatingByCompanyId(@RequestParam Long companyId) {
+        List<Review> reviews = reviewService.getAllReviewsByCompnayId(companyId);
+        OptionalDouble averageRating = reviews.stream().mapToDouble(Review::getRating).average();
+
+        if(averageRating.isPresent()) {
+            return ResponseEntity.ok(averageRating.getAsDouble());
+        }
+
+        return ResponseEntity.notFound().build();
+    }
     
     @PostMapping
     public ResponseEntity<String> addReview(@RequestParam Long companyId, @RequestBody Review review) {
         boolean success = reviewService.createReview(companyId, review);
         if(success) {
+            reviewMessageProducer.sendMessage(review);
             return new ResponseEntity<>("Review added successfully", HttpStatus.CREATED);
         }
         return new ResponseEntity<>("Company not found", HttpStatus.NOT_FOUND);        
