@@ -1,4 +1,4 @@
-package org.ankanchanda.reviewms.review.messaging;
+package org.ankanchanda.reviewms.messaging;
 
 import org.springframework.amqp.core.Queue;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;

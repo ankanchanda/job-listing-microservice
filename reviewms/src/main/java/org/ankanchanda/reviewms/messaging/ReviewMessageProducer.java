@@ -1,7 +1,7 @@
-package org.ankanchanda.reviewms.review.messaging;
+package org.ankanchanda.reviewms.messaging;
 
 import org.ankanchanda.reviewms.review.Review;
-import org.ankanchanda.reviewms.review.dto.ReviewMessage;
+import org.ankanchanda.reviewms.dto.ReviewMessage;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 
 public class ReviewMessageProducer {

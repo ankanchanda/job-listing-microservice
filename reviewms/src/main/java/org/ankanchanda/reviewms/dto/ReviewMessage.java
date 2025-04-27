@@ -1,4 +1,4 @@
-package org.ankanchanda.reviewms.review.dto;
+package org.ankanchanda.reviewms.dto;
 
 public class ReviewMessage {
     
