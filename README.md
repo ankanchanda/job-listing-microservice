@@ -9,3 +9,4 @@ Check the commit history for incremental progress.
 7. Gateway integration for single point of communication
 8. Resilience4j - CircuitBreaking, Fallback, Retry, Rate Limiting
 9. Message Queues
+10. Packaging your file using jar, we can add dependency with the help of packaging tag but default will be jar
