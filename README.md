@@ -10,3 +10,8 @@ Check the commit history for incremental progress.
 8. Resilience4j - CircuitBreaking, Fallback, Retry, Rate Limiting
 9. Message Queues
 10. Packaging your file using jar, we can add dependency with the help of packaging tag but default will be jar
+11. Dockerizing the microservices
+	`./mvnw spring-boot:build-image "-Dspring-boot.build-image.imageName=<dockerhub-username>/<your-image-name>"`
+    	`./mvnw spring-boot:build-image "-Dspring-boot.build-image.imageName=ankanchanda/service-registry"`
+        check the images at `docker image`
+        to push the image in dockerhub `docker push <dockerhub-username>/<your-image-name>`
