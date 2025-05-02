@@ -15,3 +15,14 @@ Check the commit history for incremental progress.
     	`./mvnw spring-boot:build-image "-Dspring-boot.build-image.imageName=ankanchanda/service-registry"`
         check the images at `docker image`
         to push the image in dockerhub `docker push <dockerhub-username>/<your-image-name>`
+12. Kubernetes k8s
+	Worker Nodes: Machines that run the application
+	Kubelet: agent for Managing the node and communication with control plane
+	Pods: Smallest and simplest unit for the kubernetes that you can create and deploy. Represents running process in cluster.
+	Cluster: set of nodes to run containerized applications, they have pods, which contains multiple containers
+	Container Runtime: for execution
+
+	Control Plane: controls the state of cluster
+	API Server: interface between control plane and rest of clusters
+	ETCD: Distributed Key-Value store that holds the cluster's persistency, store configuration information.
+	Scheduler: Places the pods in worker nodes based on resource availability. Responsible for distibuting work in the containers across multiple nodes.
