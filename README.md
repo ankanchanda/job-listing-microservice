@@ -43,3 +43,12 @@ Check the commit history for incremental progress.
 	Key Considerations
 	- Lifecycle and availability of pods are managed by kubernetes
 	- Pods can have associated labels and annotations
+
+	Service: A service in kubernetes is an abstraction that defines alogical set of Pods and a policy by which to access them, sometimes called a micro-service. In short, a way to access the pods
+	
+	Why do we need it? Pods in Kubernetes are ephemeral, they can be created and destroyed anytime, not reliable. Need service for persistent connection.
+
+	Types of Service:
+	- ClusterIP (default): it gives service its own ip-address to communicate with other services within the same cluster.
+	- NodePort: Expands on clusterIP, exposes the service on same port across each node, makes it accessible outside the cluster using, using node-ip and node-port
+	- LoadBalancer: exposes the service externally using the cloud providers load balancer. think it of as, it builds on node port and assigns a fixed external ip to a service, used i cloud based environments where load balancer can be provisioned automatically.
