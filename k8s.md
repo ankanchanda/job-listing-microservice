@@ -60,10 +60,35 @@ spec:
 			  ports:
 				- containerPort: 80
 ```
-- To create the pod, navigate to directory, run `kubectl apply -f some-replica-set.yaml` (-f to specify the file name)
+- To create the replicaset, navigate to directory, run `kubectl apply -f some-replica-set.yaml` (-f to specify the file name)
 - `kubectl get pods - w` - to check 3 pods running since we mentioned number of replcas as 3
 - `kubectl get replicaset`  - to check the status of replica set
 - to delete a pod `kubectl delete pod pod-name`
 - you will see a new pod will get created immediately
 
+To create a deployment with filename: `some-deployment.yaml`
+```
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+	name: my-deployment
+spec:
+	replicas: 3
+	selector:
+		matchLabels:
+			app: nginx
+	template:
+		metadata:
+			labels:
+				app: nginx
+	spec:
+		containers:
+			- name: nginx
+			  image: nginx:1.14.2
+```
+- To create the deployment, navigate to directory, run `kubectl apply -f some-deployment.yaml` (-f to specify the file name)
+- `kubectl get deployments` to check the deployments created
+- `kubectl get pods`
+- `kubectlt describe deployment my-deployment` to see events related to deployment including error, warnings
+- `kubectl logs pod-name` to check the logs related to the pods
 

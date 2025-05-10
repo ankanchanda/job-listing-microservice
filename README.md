@@ -60,3 +60,7 @@ Check the commit history for incremental progress.
 	Replica Set is not
 		- not designed to handle rolling updates or deployments, only focuses on desired number o replicas
 		- doesn't provide declarative updates to the pods, it manages
+
+	Deployments: manages the replicaset and provide updates for pods and replicasets. pods and replicasets donot change, rollout and updates are managed by deployments, you only have to define the state of the object and the deployment controller changes the actual state to the desired state at a control rate. 
+	
+
