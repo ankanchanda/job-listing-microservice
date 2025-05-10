@@ -52,3 +52,11 @@ Check the commit history for incremental progress.
 	- ClusterIP (default): it gives service its own ip-address to communicate with other services within the same cluster.
 	- NodePort: Expands on clusterIP, exposes the service on same port across each node, makes it accessible outside the cluster using, using node-ip and node-port
 	- LoadBalancer: exposes the service externally using the cloud providers load balancer. think it of as, it builds on node port and assigns a fixed external ip to a service, used i cloud based environments where load balancer can be provisioned automatically.
+	
+	Replica Set: A kubernetes object used for manageing and scaling a set of identical pdo replicas.
+	
+	Why do you need identical Pods? High Availability, Load Balancing, Scaling, Rolling updates, Service Discovery
+
+	Replica Set is not
+		- not designed to handle rolling updates or deployments, only focuses on desired number o replicas
+		- doesn't provide declarative updates to the pods, it manages
